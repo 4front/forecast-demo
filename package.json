@@ -1,0 +1,41 @@
+{
+  "name": "forecast",
+  "version": "0.0.1",
+  "scripts": {
+    "watch": "gulp watch"
+  },
+  "_virtualApp": {
+    "appId": "E1sfTk_O",
+    "liveReload": true,
+    "router": [
+      {
+        "path": "/api/forecast/:latLong",
+        "module": "express-request-proxy",
+        "options": {
+          "url": "https://api.forecast.io/forecast/:apikey/:latLong",
+          "params": {
+            "apikey": "env:DARKSKY_API_KEY"
+          }
+        }
+      },
+      {
+        "path": "/api/geocode",
+        "module": "express-request-proxy",
+        "options": {
+          "url": "https://maps.googleapis.com/maps/api/geocode/json",
+          "query": {
+            "key": "env:GOOGLE_API_KEY"
+          }
+        }
+      },
+      {
+        "module": "webpage"
+      }
+    ]
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-watch": "^4.2.4"
+  }
+}
